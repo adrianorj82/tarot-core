@@ -127,7 +127,7 @@ export default function FreeSpread({
         }}
       >
         <button
-          onClick={handleDrawCard}
+          onPointerDown={handleDrawCard}
           disabled={
             readingStarted ||
             currentCard !== null
