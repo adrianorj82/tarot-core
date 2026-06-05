@@ -1,0 +1,100 @@
+.table-area {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 40px;
+
+  width: 100%;
+
+  margin-top: 20px;
+}
+
+.deck-area {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+}
+
+.deck {
+
+  width: 120px;
+
+  height: 200px;
+
+  border-radius: 12px;
+
+  cursor: pointer;
+
+  transition: 0.3s ease;
+
+  box-shadow:
+    0 0 20px rgba(0,0,0,0.7);
+}
+
+.deck:hover {
+
+  transform: translateY(-5px);
+}
+
+.spread {
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(auto-fit, minmax(120px, 120px));
+
+  gap: 18px;
+
+  justify-content: center;
+}
+
+.slot {
+
+  width: 120px;
+
+  height: 200px;
+
+  border-radius: 12px;
+
+  border:
+    1px dashed rgba(220,220,220,0.12);
+
+  background:
+    rgba(255,255,255,0.02);
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+}
+
+.card {
+
+  width: 120px;
+
+  height: 200px;
+
+  object-fit: cover;
+
+  border-radius: 12px;
+
+  cursor: pointer;
+
+  transition: 0.3s ease;
+
+  box-shadow:
+    0 0 20px rgba(0,0,0,0.7);
+}
+
+.card:hover {
+
+  transform: scale(1.03);
+}

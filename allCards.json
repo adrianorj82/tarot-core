@@ -1,0 +1,788 @@
+[
+  {
+    "id": "fool",
+    "name": "The Fool",
+    "arcana": "major",
+    "number": 0,
+    "element": "Air",
+    "astrology": "Uranus",
+    "hebrew": "Aleph",
+    "path": 11,
+    "image": "/cards/major/fool.png"
+  },
+  {
+    "id": "magician",
+    "name": "The Magician",
+    "arcana": "major",
+    "number": 1,
+    "element": "Air",
+    "astrology": "Mercury",
+    "hebrew": "Beth",
+    "path": 12,
+    "image": "/cards/major/magician.png"
+  },
+  {
+    "id": "high-priestess",
+    "name": "The High Priestess",
+    "arcana": "major",
+    "number": 2,
+    "element": "Water",
+    "astrology": "Moon",
+    "hebrew": "Gimel",
+    "path": 13,
+    "image": "/cards/major/high-priestess.png"
+  },
+  {
+    "id": "empress",
+    "name": "The Empress",
+    "arcana": "major",
+    "number": 3,
+    "element": "Earth",
+    "astrology": "Venus",
+    "hebrew": "Daleth",
+    "path": 14,
+    "image": "/cards/major/empress.png"
+  },
+  {
+    "id": "emperor",
+    "name": "The Emperor",
+    "arcana": "major",
+    "number": 4,
+    "element": "Fire",
+    "astrology": "Aries",
+    "hebrew": "Heh",
+    "path": 15,
+    "image": "/cards/major/emperor.png"
+  },
+  {
+    "id": "hierophant",
+    "name": "The Hierophant",
+    "arcana": "major",
+    "number": 5,
+    "element": "Earth",
+    "astrology": "Taurus",
+    "hebrew": "Vav",
+    "path": 16,
+    "image": "/cards/major/hierophant.png"
+  },
+  {
+    "id": "lovers",
+    "name": "The Lovers",
+    "arcana": "major",
+    "number": 6,
+    "element": "Air",
+    "astrology": "Gemini",
+    "hebrew": "Zain",
+    "path": 17,
+    "image": "/cards/major/lovers.png"
+  },
+  {
+    "id": "chariot",
+    "name": "The Chariot",
+    "arcana": "major",
+    "number": 7,
+    "element": "Water",
+    "astrology": "Cancer",
+    "hebrew": "Cheth",
+    "path": 18,
+    "image": "/cards/major/chariot.png"
+  },
+  {
+    "id": "strength",
+    "name": "Strength",
+    "arcana": "major",
+    "number": 8,
+    "element": "Fire",
+    "astrology": "Leo",
+    "hebrew": "Teth",
+    "path": 19,
+    "image": "/cards/major/strength.png"
+  },
+  {
+    "id": "hermit",
+    "name": "The Hermit",
+    "arcana": "major",
+    "number": 9,
+    "element": "Earth",
+    "astrology": "Virgo",
+    "hebrew": "Yod",
+    "path": 20,
+    "image": "/cards/major/hermit.png"
+  },
+  {
+    "id": "wheel-of-fortune",
+    "name": "Wheel of Fortune",
+    "arcana": "major",
+    "number": 10,
+    "element": "Fire",
+    "astrology": "Jupiter",
+    "hebrew": "Kaph",
+    "path": 21,
+    "image": "/cards/major/wheel-of-fortune.png"
+  },
+  {
+    "id": "justice",
+    "name": "Justice",
+    "arcana": "major",
+    "number": 11,
+    "element": "Air",
+    "astrology": "Libra",
+    "hebrew": "Lamed",
+    "path": 22,
+    "image": "/cards/major/justice.png"
+  },
+  {
+    "id": "hanged-man",
+    "name": "The Hanged Man",
+    "arcana": "major",
+    "number": 12,
+    "element": "Water",
+    "astrology": "Neptune",
+    "hebrew": "Mem",
+    "path": 23,
+    "image": "/cards/major/hanged-man.png"
+  },
+  {
+    "id": "death",
+    "name": "Death",
+    "arcana": "major",
+    "number": 13,
+    "element": "Water",
+    "astrology": "Scorpio",
+    "hebrew": "Nun",
+    "path": 24,
+    "image": "/cards/major/death.png"
+  },
+  {
+    "id": "temperance",
+    "name": "Temperance",
+    "arcana": "major",
+    "number": 14,
+    "element": "Fire",
+    "astrology": "Sagittarius",
+    "hebrew": "Samekh",
+    "path": 25,
+    "image": "/cards/major/temperance.png"
+  },
+  {
+    "id": "devil",
+    "name": "The Devil",
+    "arcana": "major",
+    "number": 15,
+    "element": "Earth",
+    "astrology": "Capricorn",
+    "hebrew": "Ayin",
+    "path": 26,
+    "image": "/cards/major/devil.png"
+  },
+  {
+    "id": "tower",
+    "name": "The Tower",
+    "arcana": "major",
+    "number": 16,
+    "element": "Fire",
+    "astrology": "Mars",
+    "hebrew": "Peh",
+    "path": 27,
+    "image": "/cards/major/tower.png"
+  },
+  {
+    "id": "star",
+    "name": "The Star",
+    "arcana": "major",
+    "number": 17,
+    "element": "Air",
+    "astrology": "Aquarius",
+    "hebrew": "Tzaddi",
+    "path": 28,
+    "image": "/cards/major/star.png"
+  },
+  {
+    "id": "moon",
+    "name": "The Moon",
+    "arcana": "major",
+    "number": 18,
+    "element": "Water",
+    "astrology": "Pisces",
+    "hebrew": "Qoph",
+    "path": 29,
+    "image": "/cards/major/moon.png"
+  },
+  {
+    "id": "sun",
+    "name": "The Sun",
+    "arcana": "major",
+    "number": 19,
+    "element": "Fire",
+    "astrology": "Sun",
+    "hebrew": "Resh",
+    "path": 30,
+    "image": "/cards/major/sun.png"
+  },
+  {
+    "id": "judgement",
+    "name": "Judgement",
+    "arcana": "major",
+    "number": 20,
+    "element": "Fire",
+    "astrology": "Pluto",
+    "hebrew": "Shin",
+    "path": 31,
+    "image": "/cards/major/judgement.png"
+  },
+  {
+    "id": "world",
+    "name": "The World",
+    "arcana": "major",
+    "number": 21,
+    "element": "Earth",
+    "astrology": "Saturn",
+    "hebrew": "Tav",
+    "path": 32,
+    "image": "/cards/major/world.png"
+  },
+  {
+    "id": "ace-of-cups",
+    "name": "Ace of Cups",
+    "arcana": "minor",
+    "suit": "cups",
+    "number": 1,
+    "element": "Water",
+    "astrology": "",
+    "image": "/cards/minor/cups/ace-of-cups.png"
+  },
+  {
+    "id": "two-of-cups",
+    "name": "Two of Cups",
+    "arcana": "minor",
+    "suit": "cups",
+    "number": 2,
+    "element": "Water",
+    "astrology": "",
+    "image": "/cards/minor/cups/two-of-cups.png"
+  },
+  {
+    "id": "three-of-cups",
+    "name": "Three of Cups",
+    "arcana": "minor",
+    "suit": "cups",
+    "number": 3,
+    "element": "Water",
+    "astrology": "",
+    "image": "/cards/minor/cups/three-of-cups.png"
+  },
+  {
+    "id": "four-of-cups",
+    "name": "Four of Cups",
+    "arcana": "minor",
+    "suit": "cups",
+    "number": 4,
+    "element": "Water",
+    "astrology": "",
+    "image": "/cards/minor/cups/four-of-cups.png"
+  },
+  {
+    "id": "five-of-cups",
+    "name": "Five of Cups",
+    "arcana": "minor",
+    "suit": "cups",
+    "number": 5,
+    "element": "Water",
+    "astrology": "",
+    "image": "/cards/minor/cups/five-of-cups.png"
+  },
+  {
+    "id": "six-of-cups",
+    "name": "Six of Cups",
+    "arcana": "minor",
+    "suit": "cups",
+    "number": 6,
+    "element": "Water",
+    "astrology": "",
+    "image": "/cards/minor/cups/six-of-cups.png"
+  },
+  {
+    "id": "seven-of-cups",
+    "name": "Seven of Cups",
+    "arcana": "minor",
+    "suit": "cups",
+    "number": 7,
+    "element": "Water",
+    "astrology": "",
+    "image": "/cards/minor/cups/seven-of-cups.png"
+  },
+  {
+    "id": "eight-of-cups",
+    "name": "Eight of Cups",
+    "arcana": "minor",
+    "suit": "cups",
+    "number": 8,
+    "element": "Water",
+    "astrology": "",
+    "image": "/cards/minor/cups/eight-of-cups.png"
+  },
+  {
+    "id": "nine-of-cups",
+    "name": "Nine of Cups",
+    "arcana": "minor",
+    "suit": "cups",
+    "number": 9,
+    "element": "Water",
+    "astrology": "",
+    "image": "/cards/minor/cups/nine-of-cups.png"
+  },
+  {
+    "id": "ten-of-cups",
+    "name": "Ten of Cups",
+    "arcana": "minor",
+    "suit": "cups",
+    "number": 10,
+    "element": "Water",
+    "astrology": "",
+    "image": "/cards/minor/cups/ten-of-cups.png"
+  },
+  {
+    "id": "jack-of-cups",
+    "name": "Jack of Cups",
+    "arcana": "minor",
+    "suit": "cups",
+    "element": "Water",
+    "astrology": "",
+    "image": "/cards/minor/cups/jack-of-cups.png"
+  },
+  {
+    "id": "knight-of-cups",
+    "name": "Knight of Cups",
+    "arcana": "minor",
+    "suit": "cups",
+    "element": "Water",
+    "astrology": "",
+    "image": "/cards/minor/cups/knight-of-cups.png"
+  },
+  {
+    "id": "queen-of-cups",
+    "name": "Queen of Cups",
+    "arcana": "minor",
+    "suit": "cups",
+    "element": "Water",
+    "astrology": "",
+    "image": "/cards/minor/cups/queen-of-cups.png"
+  },
+  {
+    "id": "king-of-cups",
+    "name": "King of Cups",
+    "arcana": "minor",
+    "suit": "cups",
+    "element": "Water",
+    "astrology": "",
+    "image": "/cards/minor/cups/king-of-cups.png"
+  },
+  {
+    "id": "ace-of-wands",
+    "name": "Ace of Wands",
+    "arcana": "minor",
+    "suit": "wands",
+    "number": 1,
+    "element": "Fire",
+    "astrology": "",
+    "image": "/cards/minor/wands/ace-of-wands.png"
+  },
+  {
+    "id": "two-of-wands",
+    "name": "Two of Wands",
+    "arcana": "minor",
+    "suit": "wands",
+    "number": 2,
+    "element": "Fire",
+    "astrology": "",
+    "image": "/cards/minor/wands/two-of-wands.png"
+  },
+  {
+    "id": "three-of-wands",
+    "name": "Three of Wands",
+    "arcana": "minor",
+    "suit": "wands",
+    "number": 3,
+    "element": "Fire",
+    "astrology": "",
+    "image": "/cards/minor/wands/three-of-wands.png"
+  },
+  {
+    "id": "four-of-wands",
+    "name": "Four of Wands",
+    "arcana": "minor",
+    "suit": "wands",
+    "number": 4,
+    "element": "Fire",
+    "astrology": "",
+    "image": "/cards/minor/wands/four-of-wands.png"
+  },
+  {
+    "id": "five-of-wands",
+    "name": "Five of Wands",
+    "arcana": "minor",
+    "suit": "wands",
+    "number": 5,
+    "element": "Fire",
+    "astrology": "",
+    "image": "/cards/minor/wands/five-of-wands.png"
+  },
+  {
+    "id": "six-of-wands",
+    "name": "Six of Wands",
+    "arcana": "minor",
+    "suit": "wands",
+    "number": 6,
+    "element": "Fire",
+    "astrology": "",
+    "image": "/cards/minor/wands/six-of-wands.png"
+  },
+  {
+    "id": "seven-of-wands",
+    "name": "Seven of Wands",
+    "arcana": "minor",
+    "suit": "wands",
+    "number": 7,
+    "element": "Fire",
+    "astrology": "",
+    "image": "/cards/minor/wands/seven-of-wands.png"
+  },
+  {
+    "id": "eight-of-wands",
+    "name": "Eight of Wands",
+    "arcana": "minor",
+    "suit": "wands",
+    "number": 8,
+    "element": "Fire",
+    "astrology": "",
+    "image": "/cards/minor/wands/eight-of-wands.png"
+  },
+  {
+    "id": "nine-of-wands",
+    "name": "Nine of Wands",
+    "arcana": "minor",
+    "suit": "wands",
+    "number": 9,
+    "element": "Fire",
+    "astrology": "",
+    "image": "/cards/minor/wands/nine-of-wands.png"
+  },
+  {
+    "id": "ten-of-wands",
+    "name": "Ten of Wands",
+    "arcana": "minor",
+    "suit": "wands",
+    "number": 10,
+    "element": "Fire",
+    "astrology": "",
+    "image": "/cards/minor/wands/ten-of-wands.png"
+  },
+  {
+    "id": "jack-of-wands",
+    "name": "Jack of Wands",
+    "arcana": "minor",
+    "suit": "wands",
+    "element": "Fire",
+    "astrology": "",
+    "image": "/cards/minor/wands/jack-of-wands.png"
+  },
+  {
+    "id": "knight-of-wands",
+    "name": "Knight of Wands",
+    "arcana": "minor",
+    "suit": "wands",
+    "element": "Fire",
+    "astrology": "",
+    "image": "/cards/minor/wands/knight-of-wands.png"
+  },
+  {
+    "id": "queen-of-wands",
+    "name": "Queen of Wands",
+    "arcana": "minor",
+    "suit": "wands",
+    "element": "Fire",
+    "astrology": "",
+    "image": "/cards/minor/wands/queen-of-wands.png"
+  },
+  {
+    "id": "king-of-wands",
+    "name": "King of Wands",
+    "arcana": "minor",
+    "suit": "wands",
+    "element": "Fire",
+    "astrology": "",
+    "image": "/cards/minor/wands/king-of-wands.png"
+  },
+  {
+    "id": "ace-of-swords",
+    "name": "Ace of Swords",
+    "arcana": "minor",
+    "suit": "swords",
+    "number": 1,
+    "element": "Air",
+    "astrology": "",
+    "image": "/cards/minor/swords/ace-of-swords.png"
+  },
+  {
+    "id": "two-of-swords",
+    "name": "Two of Swords",
+    "arcana": "minor",
+    "suit": "swords",
+    "number": 2,
+    "element": "Air",
+    "astrology": "",
+    "image": "/cards/minor/swords/two-of-swords.png"
+  },
+  {
+    "id": "three-of-swords",
+    "name": "Three of Swords",
+    "arcana": "minor",
+    "suit": "swords",
+    "number": 3,
+    "element": "Air",
+    "astrology": "",
+    "image": "/cards/minor/swords/three-of-swords.png"
+  },
+  {
+    "id": "four-of-swords",
+    "name": "Four of Swords",
+    "arcana": "minor",
+    "suit": "swords",
+    "number": 4,
+    "element": "Air",
+    "astrology": "",
+    "image": "/cards/minor/swords/four-of-swords.png"
+  },
+  {
+    "id": "five-of-swords",
+    "name": "Five of Swords",
+    "arcana": "minor",
+    "suit": "swords",
+    "number": 5,
+    "element": "Air",
+    "astrology": "",
+    "image": "/cards/minor/swords/five-of-swords.png"
+  },
+  {
+    "id": "six-of-swords",
+    "name": "Six of Swords",
+    "arcana": "minor",
+    "suit": "swords",
+    "number": 6,
+    "element": "Air",
+    "astrology": "",
+    "image": "/cards/minor/swords/six-of-swords.png"
+  },
+  {
+    "id": "seven-of-swords",
+    "name": "Seven of Swords",
+    "arcana": "minor",
+    "suit": "swords",
+    "number": 7,
+    "element": "Air",
+    "astrology": "",
+    "image": "/cards/minor/swords/seven-of-swords.png"
+  },
+  {
+    "id": "eight-of-swords",
+    "name": "Eight of Swords",
+    "arcana": "minor",
+    "suit": "swords",
+    "number": 8,
+    "element": "Air",
+    "astrology": "",
+    "image": "/cards/minor/swords/eight-of-swords.png"
+  },
+  {
+    "id": "nine-of-swords",
+    "name": "Nine of Swords",
+    "arcana": "minor",
+    "suit": "swords",
+    "number": 9,
+    "element": "Air",
+    "astrology": "",
+    "image": "/cards/minor/swords/nine-of-swords.png"
+  },
+  {
+    "id": "ten-of-swords",
+    "name": "Ten of Swords",
+    "arcana": "minor",
+    "suit": "swords",
+    "number": 10,
+    "element": "Air",
+    "astrology": "",
+    "image": "/cards/minor/swords/ten-of-swords.png"
+  },
+  {
+    "id": "jack-of-swords",
+    "name": "Jack of Swords",
+    "arcana": "minor",
+    "suit": "swords",
+    "element": "Air",
+    "astrology": "",
+    "image": "/cards/minor/swords/jack-of-swords.png"
+  },
+  {
+    "id": "knight-of-swords",
+    "name": "Knight of Swords",
+    "arcana": "minor",
+    "suit": "swords",
+    "element": "Air",
+    "astrology": "",
+    "image": "/cards/minor/swords/knight-of-swords.png"
+  },
+  {
+    "id": "queen-of-swords",
+    "name": "Queen of Swords",
+    "arcana": "minor",
+    "suit": "swords",
+    "element": "Air",
+    "astrology": "",
+    "image": "/cards/minor/swords/queen-of-swords.png"
+  },
+  {
+    "id": "king-of-swords",
+    "name": "King of Swords",
+    "arcana": "minor",
+    "suit": "swords",
+    "element": "Air",
+    "astrology": "",
+    "image": "/cards/minor/swords/king-of-swords.png"
+  },
+  {
+    "id": "ace-of-pentacles",
+    "name": "Ace of Pentacles",
+    "arcana": "minor",
+    "suit": "pentacles",
+    "number": 1,
+    "element": "Earth",
+    "astrology": "",
+    "image": "/cards/minor/pentacles/ace-of-pentacles.png"
+  },
+  {
+    "id": "two-of-pentacles",
+    "name": "Two of Pentacles",
+    "arcana": "minor",
+    "suit": "pentacles",
+    "number": 2,
+    "element": "Earth",
+    "astrology": "",
+    "image": "/cards/minor/pentacles/two-of-pentacles.png"
+  },
+  {
+    "id": "three-of-pentacles",
+    "name": "Three of Pentacles",
+    "arcana": "minor",
+    "suit": "pentacles",
+    "number": 3,
+    "element": "Earth",
+    "astrology": "",
+    "image": "/cards/minor/pentacles/three-of-pentacles.png"
+  },
+  {
+    "id": "four-of-pentacles",
+    "name": "Four of Pentacles",
+    "arcana": "minor",
+    "suit": "pentacles",
+    "number": 4,
+    "element": "Earth",
+    "astrology": "",
+    "image": "/cards/minor/pentacles/four-of-pentacles.png"
+  },
+  {
+    "id": "five-of-pentacles",
+    "name": "Five of Pentacles",
+    "arcana": "minor",
+    "suit": "pentacles",
+    "number": 5,
+    "element": "Earth",
+    "astrology": "",
+    "image": "/cards/minor/pentacles/five-of-pentacles.png"
+  },
+  {
+    "id": "six-of-pentacles",
+    "name": "Six of Pentacles",
+    "arcana": "minor",
+    "suit": "pentacles",
+    "number": 6,
+    "element": "Earth",
+    "astrology": "",
+    "image": "/cards/minor/pentacles/six-of-pentacles.png"
+  },
+  {
+    "id": "seven-of-pentacles",
+    "name": "Seven of Pentacles",
+    "arcana": "minor",
+    "suit": "pentacles",
+    "number": 7,
+    "element": "Earth",
+    "astrology": "",
+    "image": "/cards/minor/pentacles/seven-of-pentacles.png"
+  },
+  {
+    "id": "eight-of-pentacles",
+    "name": "Eight of Pentacles",
+    "arcana": "minor",
+    "suit": "pentacles",
+    "number": 8,
+    "element": "Earth",
+    "astrology": "",
+    "image": "/cards/minor/pentacles/eight-of-pentacles.png"
+  },
+  {
+    "id": "nine-of-pentacles",
+    "name": "Nine of Pentacles",
+    "arcana": "minor",
+    "suit": "pentacles",
+    "number": 9,
+    "element": "Earth",
+    "astrology": "",
+    "image": "/cards/minor/pentacles/nine-of-pentacles.png"
+  },
+  {
+    "id": "ten-of-pentacles",
+    "name": "Ten of Pentacles",
+    "arcana": "minor",
+    "suit": "pentacles",
+    "number": 10,
+    "element": "Earth",
+    "astrology": "",
+    "image": "/cards/minor/pentacles/ten-of-pentacles.png"
+  },
+  {
+    "id": "jack-of-pentacles",
+    "name": "Jack of Pentacles",
+    "arcana": "minor",
+    "suit": "pentacles",
+    "element": "Earth",
+    "astrology": "",
+    "image": "/cards/minor/pentacles/jack-of-pentacles.png"
+  },
+  {
+    "id": "knight-of-pentacles",
+    "name": "Knight of Pentacles",
+    "arcana": "minor",
+    "suit": "pentacles",
+    "element": "Earth",
+    "astrology": "",
+    "image": "/cards/minor/pentacles/knight-of-pentacles.png"
+  },
+  {
+    "id": "queen-of-pentacles",
+    "name": "Queen of Pentacles",
+    "arcana": "minor",
+    "suit": "pentacles",
+    "element": "Earth",
+    "astrology": "",
+    "image": "/cards/minor/pentacles/queen-of-pentacles.png"
+  },
+  {
+    "id": "king-of-pentacles",
+    "name": "King of Pentacles",
+    "arcana": "minor",
+    "suit": "pentacles",
+    "element": "Earth",
+    "astrology": "",
+    "image": "/cards/minor/pentacles/king-of-pentacles.png"
+  }
+]

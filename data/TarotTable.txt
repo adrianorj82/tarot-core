@@ -1,0 +1,633 @@
+"use client";
+
+import { useState, useEffect } from "react";
+
+import SpreadSelector from "./SpreadSelector";
+import TarotCard from "./TarotCard";
+import CelticCrossSpread from "./spreads/CelticCrossSpread";
+import ThreeCardSpread from "./spreads/ThreeCardSpread";
+import AstrologicalWheelSpread from "./spreads/AstrologicalWheelSpread";
+import HistoryPanel from "./HistoryPanel";
+import Menu from "./Menu";
+
+import allCards from "../allCards.json";
+
+import { drawCards } from "../services/tarotEngine";
+import type { CardType } from "../services/tarotEngine";
+
+type SpreadType =
+  | "single"
+  | "three"
+  | "celtic"
+  | "astrological";
+
+type ViewType =
+  | "new"
+  | "history"
+  | "favorites"
+  | "archived"
+  | "profiles"
+  | "journal"
+  | "settings";
+
+export default function TarotTable() {
+  const [spreadType, setSpreadType] =
+    useState<SpreadType>("single");
+
+const [drawnCards, setDrawnCards] =
+  useState<CardType[]>([]);
+
+const [bottomCard, setBottomCard] =
+  useState<CardType | null>(null);
+
+  const [isShuffling, setIsShuffling] =
+    useState(false);
+
+  const [menuOpen, setMenuOpen] =
+    useState(false);
+
+  const [currentView, setCurrentView] =
+    useState<ViewType>("new");
+
+async function handleDrawCards() {
+  if (isShuffling) {
+    return;
+  }
+
+  setIsShuffling(true);
+
+  await new Promise((resolve) =>
+    setTimeout(resolve, 1800)
+  );
+
+  setIsShuffling(false);
+
+  const result = drawCards(
+    allCards as CardType[],
+    spreadType
+  );
+
+const selectedCards =
+  result.cards;
+
+const deckBottom =
+  result.bottomCard;
+
+const normalizedCards =
+  spreadType === "celtic"
+    ? selectedCards.slice(0, 10)
+    : selectedCards;
+
+    const hiddenCards = normalizedCards.map(
+      (card) => ({
+        ...card,
+        revealed: false,
+      })
+    );
+
+setDrawnCards(hiddenCards);
+
+setBottomCard({
+  ...deckBottom,
+  revealed: false,
+});
+
+
+    // HISTÓRICO
+    const newReading = {
+      id: crypto.randomUUID(),
+      date: Date.now(),
+      spreadType,
+      cards: hiddenCards,
+
+      favorite: false,
+      archived: false,
+      profileId: null,
+    };
+
+    const existingHistory =
+      localStorage.getItem(
+        "tarot-history"
+      );
+
+    const parsedHistory =
+      existingHistory
+        ? JSON.parse(existingHistory)
+        : [];
+
+    localStorage.setItem(
+      "tarot-history",
+      JSON.stringify([
+        newReading,
+        ...parsedHistory,
+      ]);
+
+  return (
+    <>
+      <Menu
+        isOpen={menuOpen}
+        onClose={() =>
+          setMenuOpen(false)
+        }
+        currentView={currentView}
+        setCurrentView={setCurrentView}
+      />
+
+      <div
+        style={{
+          width: "100%",
+          minHeight: "100vh",
+          backgroundImage:
+            "url('/backgrounds/bg.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundColor: "#050505",
+
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+
+          padding: "30px",
+        }}
+      >
+        <div
+          style={{
+            width: "100%",
+            maxWidth: "1700px",
+            minHeight: "900px",
+
+            borderRadius: "28px",
+
+            background:
+              "rgba(0,0,0,0.55)",
+
+            border:
+              "1px solid rgba(212,175,55,0.08)",
+
+            boxShadow:
+              "0 0 60px rgba(0,0,0,0.7)",
+
+            padding: "40px",
+
+            backdropFilter: "blur(4px)",
+          }}
+        >
+          {/* HEADER */}
+          <div
+            style={{
+              width: "100%",
+
+              display: "flex",
+
+              justifyContent:
+                "space-between",
+
+              alignItems: "center",
+
+              marginBottom: "20px",
+            }}
+          >
+            <button
+              onClick={() =>
+                setMenuOpen(true)
+              }
+              style={{
+                background: "transparent",
+
+                border: "none",
+
+                color: "#d4af37",
+
+                fontSize: "22px",
+
+                cursor: "pointer",
+
+                letterSpacing: "1px",
+              }}
+            >
+              ☰ Menu
+            </button>
+
+            <div
+              style={{
+                width: "54px",
+                height: "54px",
+
+                borderRadius: "50%",
+
+                border:
+                  "1px solid #d4af37",
+
+                display: "flex",
+
+                justifyContent:
+                  "center",
+
+                alignItems: "center",
+
+                color: "#d4af37",
+
+                fontSize: "24px",
+
+                boxShadow:
+                  "0 0 20px rgba(212,175,55,0.18)",
+              }}
+            >
+              ✶
+            </div>
+          </div>
+
+          {/* TITLE */}
+          <h1
+            style={{
+              color: "#f5e6b8",
+
+              textAlign: "center",
+
+              fontSize: "56px",
+
+              marginBottom: "12px",
+
+              fontWeight: 500,
+
+              letterSpacing: "1px",
+
+              textShadow:
+                "0 0 20px rgba(212,175,55,0.15)",
+            }}
+          >
+            {currentView === "new" &&
+              "Escolha sua Tiragem"}
+
+            {currentView === "history" &&
+              "Histórico"}
+
+            {currentView ===
+              "favorites" &&
+              "Favoritas"}
+
+            {currentView ===
+              "archived" &&
+              "Arquivadas"}
+
+            {currentView ===
+              "profiles" &&
+              "Perfis"}
+
+            {currentView ===
+              "journal" &&
+              "Diário"}
+
+            {currentView ===
+              "settings" &&
+              "Configurações"}
+          </h1>
+
+          <div
+            style={{
+              width: "220px",
+
+              height: "1px",
+
+              background:
+                "rgba(212,175,55,0.4)",
+
+              margin:
+                "0 auto 35px auto",
+            }}
+          />
+
+          {/* VIEW CONTENT */}
+          {currentView === "new" && (
+            <>
+              {/* SELECTOR */}
+              <SpreadSelector
+                spreadType={spreadType}
+                setSpreadType={
+                  setSpreadType
+                }
+              />
+
+              {/* MAIN */}
+              <div
+                style={{
+                  display: "flex",
+
+                  flexDirection:
+                    "column",
+
+                  marginTop: "50px",
+
+                  gap: "40px",
+                }}
+              >
+                {/* DECK */}
+                <div
+                  style={{
+                    width: "100%",
+
+                    display: "flex",
+
+                    justifyContent:
+                      "flex-start",
+
+                    alignItems:
+                      "center",
+                  }}
+                >
+                  <div
+                    style={{
+                      position:
+                        "relative",
+                    }}
+                  >
+                    <img
+                      src="/cards/back.png"
+                      alt="deck"
+                      onClick={
+                        handleDrawCards
+                      }
+                      style={{
+                        width: "220px",
+
+                        borderRadius:
+                          "18px",
+
+                        cursor:
+                          isShuffling ||
+                          
+                        opacity:
+                          isShuffling
+                            ? 0.7
+                            : 1,
+
+                        transform:
+                          isShuffling
+                            ? "rotate(6deg) scale(1.05)"
+                            : "rotate(0deg) scale(1)",
+
+                        transition:
+                          "all 0.3s ease",
+
+                        boxShadow:
+                          isShuffling
+                            ? "0 0 40px rgba(212,175,55,0.35)"
+                            : "0 0 25px rgba(0,0,0,0.6)",
+                      }}
+                    />
+
+                    {isShuffling && (
+                      <div
+                        style={{
+                          position:
+                            "absolute",
+
+                          top:
+                            "-38px",
+
+                          left:
+                            "50%",
+
+                          transform:
+                            "translateX(-50%)",
+
+                          color:
+                            "#d4af37",
+
+                          fontSize:
+                            "14px",
+
+                          letterSpacing:
+                            "2px",
+                        }}
+                      >
+                        EMBARALHANDO...
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* SPREAD */}
+                <div
+                  style={{
+                    width: "100%",
+
+                    display: "flex",
+
+                    justifyContent:
+                      "center",
+
+                    alignItems:
+                      "center",
+                  }}
+                >
+                  {spreadType ===
+                    "single" && (
+                    <div
+                      style={{
+                        display:
+                          "flex",
+
+                        flexDirection:
+                          "column",
+
+                        alignItems:
+                          "center",
+
+                        gap: "18px",
+                      }}
+                    >
+                      {drawnCards.map(
+                        (
+                          card,
+                          index
+                        ) => (
+                          <div
+                            key={index}
+                            style={{
+                              display:
+                                "flex",
+
+                              flexDirection:
+                                "column",
+
+                              alignItems:
+                                "center",
+
+                              gap: "14px",
+                            }}
+                          >
+                            <TarotCard
+                              card={
+                                card
+                              }
+                            />
+
+                            {card.revealed && (
+                              <div
+                                style={{
+                                  color:
+                                    "#f1e7c9",
+
+                                  fontSize:
+                                    "22px",
+
+                                  letterSpacing:
+                                    "1px",
+
+                                  textShadow:
+                                    "0 0 12px rgba(0,0,0,0.7)",
+                                }}
+                              >
+                                {
+                                  card.name
+                                }
+
+                                {card.reversed &&
+                                  " • Reversed"}
+                              </div>
+                            )}
+                          </div>
+                        )
+                      )}
+                    </div>
+                  )}
+
+{spreadType === "three" && (
+  <div
+    style={{
+      width: "100%",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      gap: "50px",
+    }}
+  >
+    <ThreeCardSpread
+      cards={drawnCards}
+    />
+
+    {bottomCard && (
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: "16px",
+        }}
+      >
+        <div
+          style={{
+            color: "#d4af37",
+            fontSize: "18px",
+            letterSpacing: "2px",
+            fontWeight: 500,
+          }}
+        >
+          FUNDO DO DECK
+        </div>
+
+        <TarotCard
+          card={bottomCard}
+        />
+
+        {bottomCard.revealed && (
+          <div
+            style={{
+              color: "#f1e7c9",
+              fontSize: "20px",
+              textAlign: "center",
+            }}
+          >
+            {bottomCard.name}
+            {bottomCard.reversed &&
+              " • Invertida"}
+          </div>
+        )}
+      </div>
+    )}
+  </div>
+)}
+
+{spreadType ===
+  "celtic" && (
+  <CelticCrossSpread
+    cards={drawnCards.slice(
+      0,
+      10
+    )}
+  />
+)}
+
+{spreadType ===
+  "astrological" && (
+  <AstrologicalWheelSpread
+    cards={drawnCards.slice(
+      0,
+      12
+    )}
+  />
+)}
+                </div>
+
+                {/* FOOTER */}
+                <div
+                  style={{
+                    textAlign:
+                      "center",
+
+                    marginTop:
+                      "20px",
+
+                    color:
+                      "rgba(212,175,55,0.85)",
+
+                    fontSize:
+                      "24px",
+
+                    letterSpacing:
+                      "1px",
+                  }}
+                >
+                  Respire profundamente e
+                  permita que as cartas
+                  revelem aquilo que
+                  precisa ser visto.
+                </div>
+              </div>
+            </>
+          )}
+
+          {currentView ===
+            "history" && (
+            <HistoryPanel />
+          )}
+
+          {currentView !== "new" &&
+            currentView !==
+              "history" && (
+              <div
+                style={{
+                  width: "100%",
+
+                  padding:
+                    "80px 20px",
+
+                  textAlign:
+                    "center",
+
+                  color:
+                    "rgba(255,255,255,0.6)",
+
+                  fontSize:
+                    "22px",
+                }}
+              >
+                Em desenvolvimento...
+              </div>
+            )}
+        </div>
+      </div>
+    </>
+  );
+}
