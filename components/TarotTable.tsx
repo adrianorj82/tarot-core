@@ -3,7 +3,6 @@
 import { useState } from "react";
 
 import SpreadSelector from "./SpreadSelector";
-import TarotCard from "./TarotCard";
 import CelticCrossSpread from "./spreads/CelticCrossSpread";
 import ThreeCardSpread from "./spreads/ThreeCardSpread";
 import AstrologicalWheelSpread from "./spreads/AstrologicalWheelSpread";
@@ -32,151 +31,91 @@ type ViewType =
   | "settings";
 
 export default function TarotTable() {
-  const [spreadType, setSpreadType] =
-    useState<SpreadType>("three");
+  const [spreadType, setSpreadType] = useState<SpreadType>("three");
 
-const [drawnCards, setDrawnCards] =
-  useState<CardType[]>([]);
+  const [drawnCards, setDrawnCards] = useState<CardType[]>([]);
+  const [bottomCard, setBottomCard] = useState<CardType | null>(null);
 
-const [bottomCard, setBottomCard] =
-  useState<CardType | null>(null);
+  const [isShuffling, setIsShuffling] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [currentView, setCurrentView] = useState<ViewType>("new");
 
-  const [isShuffling, setIsShuffling] =
-    useState(false);
+  function revealCard(index: number) {
+    setDrawnCards((prev) =>
+      prev.map((card, i) =>
+        i === index ? { ...card, revealed: true } : card
+      )
+    );
+  }
 
-  const [menuOpen, setMenuOpen] =
-    useState(false);
+  function revealBottomCard() {
+    setBottomCard((prev) =>
+      prev ? { ...prev, revealed: true } : prev
+    );
+  }
 
-  const [currentView, setCurrentView] =
-    useState<ViewType>("new");
+  async function handleDrawCards() {
+    if (isShuffling) return;
 
-function revealCard(index: number) {
-  console.log("REVELAR", index);
+    setIsShuffling(true);
 
-  setDrawnCards((prev) =>
-    prev.map((card, i) =>
-      i === index
-        ? {
-            ...card,
-            revealed: true,
-          }
-        : card
-    )
-  );
-}
-function revealBottomCard() {
-  setBottomCard((prev) => {
-    if (!prev) return prev;
+    await new Promise((r) => setTimeout(r, 1800));
 
-    return {
-      ...prev,
-      revealed: true,
+    const result = drawCards(
+      allCards as CardType[],
+      spreadType
+    );
+
+    const cards = result.cards;
+    const bottom = result.bottomCard;
+
+    const normalized =
+      spreadType === "celtic"
+        ? cards.slice(0, 10)
+        : cards;
+
+    const hiddenCards = normalized.map((card, index) => ({
+      ...card,
+      revealed:
+        spreadType === "celtic" && index === 0,
+    }));
+
+    setDrawnCards(hiddenCards);
+
+    setBottomCard(
+      bottom
+        ? { ...bottom, revealed: false }
+        : null
+    );
+
+    const existing = localStorage.getItem("tarot-history");
+
+    const parsed = existing ? JSON.parse(existing) : [];
+
+    const newReading = {
+      id: crypto.randomUUID(),
+      date: Date.now(),
+      spreadType,
+      cards: hiddenCards,
+      bottomCard: bottom ? { ...bottom, revealed: false } : null,
+      favorite: false,
+      archived: false,
+      profileId: null,
     };
-  });
-}
-function drawSingleCard(): CardType | null {
-  const result = drawCards(
-    allCards as CardType[],
-    "three"
-  );
-
-  if (!result.cards.length) {
-    return null;
-  }
-
-  return {
-    ...result.cards[0],
-    revealed: false,
-  };
-}
-async function handleDrawCards() {
-  if (isShuffling) {
-    return;
-  }
-
-  setIsShuffling(true);
-
-  await new Promise((resolve) =>
-    setTimeout(resolve, 1800)
-  );
-
-  setIsShuffling(false);
-
-  const result = drawCards(
-    allCards as CardType[],
-    spreadType
-  );
-
-const selectedCards =
-  result.cards;
-
-const deckBottom =
-  result.bottomCard;
-
-const normalizedCards =
-  spreadType === "celtic"
-    ? selectedCards.slice(0, 10)
-    : selectedCards;
-
-const hiddenCards = normalizedCards.map(
-  (card, index) => ({
-    ...card,
-    revealed:
-      spreadType === "celtic" &&
-      index === 0,
-  })
-);
-setDrawnCards(hiddenCards);
-
-setBottomCard({
-  ...deckBottom,
-  revealed: false,
-});
-
-
-    // HISTÓRICO
-const newReading = {
-  id: crypto.randomUUID(),
-  date: Date.now(),
-  spreadType,
-  cards: hiddenCards,
-
-  bottomCard: {
-    ...deckBottom,
-    revealed: false,
-  },
-
-  favorite: false,
-  archived: false,
-  profileId: null,
-};
-
-    const existingHistory =
-      localStorage.getItem(
-        "tarot-history"
-      );
-
-    const parsedHistory =
-      existingHistory
-        ? JSON.parse(existingHistory)
-        : [];
 
     localStorage.setItem(
-  "tarot-history",
-  JSON.stringify([
-    newReading,
-    ...parsedHistory,
-  ])
-);
-}
+      "tarot-history",
+      JSON.stringify([newReading, ...parsed])
+    );
+
+    setIsShuffling(false);
+  }
 
   return (
     <>
       <Menu
         isOpen={menuOpen}
-        onClose={() =>
-          setMenuOpen(false)
-        }
+        onClose={() => setMenuOpen(false)}
         currentView={currentView}
         setCurrentView={setCurrentView}
       />
@@ -185,14 +124,10 @@ const newReading = {
         style={{
           width: "100%",
           minHeight: "100vh",
-                    backgroundSize: "cover",
-          backgroundPosition: "center",
           backgroundColor: "#050505",
-
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-
           padding: "30px",
         }}
       >
@@ -201,412 +136,108 @@ const newReading = {
             width: "100%",
             maxWidth: "1700px",
             minHeight: "900px",
-
             borderRadius: "28px",
-
-            background:
-              "rgba(0,0,0,0.55)",
-
-            border:
-              "1px solid rgba(212,175,55,0.08)",
-
-            boxShadow:
-              "0 0 60px rgba(0,0,0,0.7)",
-
+            background: "rgba(0,0,0,0.55)",
+            border: "1px solid rgba(212,175,55,0.08)",
+            boxShadow: "0 0 60px rgba(0,0,0,0.7)",
             padding: "40px",
-
             backdropFilter: "blur(4px)",
           }}
         >
           {/* HEADER */}
           <div
             style={{
-              width: "100%",
-
               display: "flex",
-
-              justifyContent:
-                "space-between",
-
-              alignItems: "center",
-
+              justifyContent: "space-between",
               marginBottom: "20px",
             }}
           >
             <button
-              onClick={() =>
-                setMenuOpen(true)
-              }
+              onClick={() => setMenuOpen(true)}
               style={{
                 background: "transparent",
-
                 border: "none",
-
                 color: "#d4af37",
-
                 fontSize: "22px",
-
                 cursor: "pointer",
-
-                letterSpacing: "1px",
               }}
             >
               ☰ Menu
             </button>
-
-            <div
-              style={{
-                width: "54px",
-                height: "54px",
-
-                borderRadius: "50%",
-
-                border:
-                  "1px solid #d4af37",
-
-                display: "flex",
-
-                justifyContent:
-                  "center",
-
-                alignItems: "center",
-
-                color: "#d4af37",
-
-                fontSize: "24px",
-
-                boxShadow:
-                  "0 0 20px rgba(212,175,55,0.18)",
-              }}
-            >
-              ✶
-            </div>
           </div>
 
           {/* TITLE */}
           <h1
             style={{
-              color: "#f5e6b8",
-
               textAlign: "center",
-
+              color: "#f5e6b8",
               fontSize: "56px",
-
-              marginBottom: "12px",
-
-              fontWeight: 500,
-
-              letterSpacing: "1px",
-
-              textShadow:
-                "0 0 20px rgba(212,175,55,0.15)",
+              marginBottom: "20px",
             }}
           >
-            {currentView === "new" &&
-              "Escolha sua Tiragem"}
-
-            {currentView === "history" &&
-              "Histórico"}
-
-            {currentView ===
-              "favorites" &&
-              "Favoritas"}
-
-            {currentView ===
-              "archived" &&
-              "Arquivadas"}
-
-            {currentView ===
-              "profiles" &&
-              "Perfis"}
-
-            {currentView ===
-              "journal" &&
-              "Diário"}
-
-            {currentView ===
-              "settings" &&
-              "Configurações"}
+            Escolha sua Tiragem
           </h1>
 
-          <div
-            style={{
-              width: "220px",
-
-              height: "1px",
-
-              background:
-                "rgba(212,175,55,0.4)",
-
-              margin:
-                "0 auto 35px auto",
-            }}
+          {/* SELECTOR */}
+          <SpreadSelector
+            spreadType={spreadType}
+            setSpreadType={setSpreadType}
           />
 
-          {/* VIEW CONTENT */}
-          {currentView === "new" && (
-            <>
-              {/* SELECTOR */}
-              <SpreadSelector
-                spreadType={spreadType}
-                setSpreadType={
-                  setSpreadType
-                }
+          {/* DECK */}
+          <div style={{ marginTop: "40px" }}>
+            <img
+              src="/cards/back.png"
+              onClick={handleDrawCards}
+              style={{
+                width: "220px",
+                cursor: isShuffling ? "not-allowed" : "pointer",
+                opacity: isShuffling ? 0.6 : 1,
+              }}
+            />
+          </div>
+
+          {/* SPREADS */}
+          <div style={{ marginTop: "40px" }}>
+            {spreadType === "three" && (
+              <ThreeCardSpread
+                cards={drawnCards}
+                onReveal={revealCard}
               />
+            )}
 
-              {/* MAIN */}
-              <div
-                style={{
-                  display: "flex",
+            {spreadType === "celtic" && (
+              <CelticCrossSpread
+                cards={drawnCards.slice(0, 10)}
+                onReveal={revealCard}
+              />
+            )}
 
-                  flexDirection:
-                    "column",
+            {spreadType === "astrological" && (
+              <AstrologicalWheelSpread
+                cards={drawnCards.slice(0, 12)}
+              />
+            )}
 
-                  marginTop: "50px",
+            {spreadType === "free" && (
+              <FreeSpread cards={drawnCards} />
+            )}
+          </div>
 
-                  gap: "40px",
-                }}
-              >
-                {/* DECK */}
-                <div
-                  style={{
-                    width: "100%",
-
-                    display: "flex",
-
-                    justifyContent:
-                      "flex-start",
-
-                    alignItems:
-                      "center",
-                  }}
-                >
-                  <div
-                    style={{
-                      position:
-                        "relative",
-                    }}
-                  >
-                    <img
-                      src="/cards/back.png"
-                      alt="deck"
-                      onClick={
-                        handleDrawCards
-                      }
-                      style={{
-                        width: "220px",
-
-                        borderRadius:
-                          "18px",
-
-                        cursor:
-  isShuffling
-    ? "default"
-    : "pointer",
-                          
-                        opacity:
-                          isShuffling
-                            ? 0.7
-                            : 1,
-
-                        transform:
-                          isShuffling
-                            ? "rotate(6deg) scale(1.05)"
-                            : "rotate(0deg) scale(1)",
-
-                        transition:
-                          "all 0.3s ease",
-
-                        boxShadow:
-                          isShuffling
-                            ? "0 0 40px rgba(212,175,55,0.35)"
-                            : "0 0 25px rgba(0,0,0,0.6)",
-                      }}
-                    />
-
-                    {isShuffling && (
-                      <div
-                        style={{
-                          position:
-                            "absolute",
-
-                          top:
-                            "-38px",
-
-                          left:
-                            "50%",
-
-                          transform:
-                            "translateX(-50%)",
-
-                          color:
-                            "#d4af37",
-
-                          fontSize:
-                            "14px",
-
-                          letterSpacing:
-                            "2px",
-                        }}
-                      >
-                        EMBARALHANDO...
-                      </div>
-                    )}
-                  </div>
-                </div>
-
-                {/* SPREAD */}
-                <div
-                  style={{
-                    width: "100%",
-
-                    display: "flex",
-
-                    justifyContent:
-                      "center",
-
-                    alignItems:
-                      "center",
-                  }}
-                >
-
-{spreadType === "three" && (
-  <div
-    style={{
-      width: "100%",
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      gap: "50px",
-    }}
-  >
-<ThreeCardSpread
-  cards={drawnCards}
-  onReveal={revealCard}
-/>
-
-    {bottomCard && (
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: "16px",
-        }}
-      >
-        <div
-          style={{
-            color: "#d4af37",
-            fontSize: "18px",
-            letterSpacing: "2px",
-            fontWeight: 500,
-          }}
-        >
-          FUNDO DO DECK
-        </div>
-
-<TarotCard
-  card={bottomCard}
-  onReveal={revealBottomCard}
-/>
-
-        {bottomCard.revealed && (
+          {/* FOOTER */}
           <div
             style={{
-              color: "#f1e7c9",
-              fontSize: "20px",
+              marginTop: "40px",
               textAlign: "center",
+              color: "#d4af37",
             }}
           >
-            {bottomCard.name}
-            {bottomCard.reversed &&
-              " • Invertida"}
+            Respire e permita que as cartas revelem.
           </div>
-        )}
-      </div>
-    )}
-  </div>
-)}
-
-{spreadType === "celtic" && (
-  <CelticCrossSpread
-    cards={drawnCards.slice(0, 10)}
-    onReveal={revealCard}
-  />
-)}
-
-{spreadType === "astrological" && (
-  <AstrologicalWheelSpread
-    cards={drawnCards.slice(0, 12)}
-  />
-)}
-
-{spreadType === "free" && (
-  <FreeSpread
-    drawCard={drawSingleCard}
-  />
-
-)}
-                </div>
-
-                {/* FOOTER */}
-                <div
-                  style={{
-                    textAlign:
-                      "center",
-
-                    marginTop:
-                      "20px",
-
-                    color:
-                      "rgba(212,175,55,0.85)",
-
-                    fontSize:
-                      "24px",
-
-                    letterSpacing:
-                      "1px",
-                  }}
-                >
-                  Respire profundamente e
-                  permita que as cartas
-                  revelem aquilo que
-                  precisa ser visto.
-                </div>
-              </div>
-            </>
-          )}
-
-          {currentView ===
-            "history" && (
-            <HistoryPanel />
-          )}
-
-          {currentView !== "new" &&
-            currentView !==
-              "history" && (
-              <div
-                style={{
-                  width: "100%",
-
-                  padding:
-                    "80px 20px",
-
-                  textAlign:
-                    "center",
-
-                  color:
-                    "rgba(255,255,255,0.6)",
-
-                  fontSize:
-                    "22px",
-                }}
-              >
-                Em desenvolvimento...
-              </div>
-            )}
         </div>
       </div>
+
+      {currentView === "history" && <HistoryPanel />}
     </>
   );
 }

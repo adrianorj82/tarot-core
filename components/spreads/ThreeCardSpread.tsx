@@ -1,7 +1,6 @@
 "use client";
 
 import TarotCard from "../TarotCard";
-
 import type { CardType } from "../../services/tarotEngine";
 
 type Props = {
@@ -13,11 +12,14 @@ export default function ThreeCardSpread({
   cards,
   onReveal,
 }: Props) {
-  const positions = [
-    "PASSADO",
-    "PRESENTE",
-    "FUTURO",
-  ];
+  const positions = ["PASSADO", "PRESENTE", "FUTURO"];
+
+  const isMobile =
+    typeof window !== "undefined" &&
+    window.innerWidth < 768;
+
+  const CARD_W = isMobile ? 70 : 90;
+  const CARD_H = isMobile ? 120 : 150;
 
   return (
     <div
@@ -25,10 +27,9 @@ export default function ThreeCardSpread({
         display: "flex",
         justifyContent: "center",
         alignItems: "flex-start",
-        gap: "48px",
+        gap: "40px",
         flexWrap: "wrap",
         width: "100%",
-        marginTop: "20px",
       }}
     >
       {cards.map((card, index) => (
@@ -38,46 +39,39 @@ export default function ThreeCardSpread({
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            gap: "16px",
+            gap: "12px",
           }}
         >
-          {/* POSIÇÃO */}
+          {/* LABEL */}
           <div
             style={{
               color: "#d4af37",
-              fontSize: "18px",
+              fontSize: "16px",
               letterSpacing: "2px",
-              fontWeight: 500,
-              textShadow:
-                "0 0 10px rgba(212,175,55,0.25)",
             }}
           >
             {positions[index]}
           </div>
 
-          {/* CARTA */}
-        <TarotCard
-  card={card}
-  onReveal={() => onReveal(index)}
-/>
+          {/* CARTA (CORRIGIDA) */}
+          <TarotCard
+            card={card}
+            width={CARD_W}
+            height={CARD_H}
+            onReveal={() => onReveal(index)}
+          />
 
           {/* NOME */}
           {card.revealed && (
             <div
               style={{
                 color: "#f1e7c9",
-                fontSize: "20px",
-                marginTop: "4px",
-                letterSpacing: "1px",
+                fontSize: "18px",
                 textAlign: "center",
-                textShadow:
-                  "0 0 12px rgba(0,0,0,0.7)",
               }}
             >
               {card.name}
-
-              {card.reversed &&
-                " • Invertida"}
+              {card.reversed && " • Invertida"}
             </div>
           )}
         </div>
