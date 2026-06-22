@@ -92,8 +92,7 @@ export default function AstrologicalWheelSpread({
                 }}
               >
                 {card.name}
-                {card.reversed &&
-                  " • Invertida"}
+               
               </div>
             )}
           </div>

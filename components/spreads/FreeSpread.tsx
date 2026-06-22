@@ -158,8 +158,10 @@ export default function FreeSpread({
           style={{
             position: "relative",
 
-            width: "1200px",
-            height: "1200px",
+          width: "90vw",
+height: "90vw",
+maxWidth: "900px",
+maxHeight: "900px",
 
             overflow: "hidden",
 
@@ -207,7 +209,7 @@ export default function FreeSpread({
                 style={{
                   position: "absolute",
                   left: mousePos.x - 55,
-                  top: mousePos.y - 240,
+                  top: mousePos.y - 90,
 
                   pointerEvents: "none",
 

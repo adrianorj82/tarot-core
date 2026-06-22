@@ -135,16 +135,21 @@ setBottomCard({
 
 
     // HISTÓRICO
-    const newReading = {
-      id: crypto.randomUUID(),
-      date: Date.now(),
-      spreadType,
-      cards: hiddenCards,
+const newReading = {
+  id: crypto.randomUUID(),
+  date: Date.now(),
+  spreadType,
+  cards: hiddenCards,
 
-      favorite: false,
-      archived: false,
-      profileId: null,
-    };
+  bottomCard: {
+    ...deckBottom,
+    revealed: false,
+  },
+
+  favorite: false,
+  archived: false,
+  profileId: null,
+};
 
     const existingHistory =
       localStorage.getItem(

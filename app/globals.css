@@ -60,3 +60,21 @@
 
   transform: scale(1.03);
 }
+@media (max-width: 768px) {
+  .deck,
+  .card,
+  .slot {
+    width: min(28vw, 90px) !important;
+    height: auto !important;
+  }
+
+  .spread {
+    gap: 10px !important;
+    grid-template-columns: repeat(auto-fit, minmax(70px, 1fr)) !important;
+  }
+
+  .table-area {
+    gap: 12px !important;
+    flex-wrap: wrap;
+  }
+}

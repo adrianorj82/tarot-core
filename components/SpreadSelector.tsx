@@ -1,5 +1,7 @@
 "use client";
 
+import { useEffect, useState } from "react";
+
 type SpreadType =
   | "three"
   | "celtic"
@@ -18,6 +20,30 @@ export default function SpreadSelector({
   spreadType,
   setSpreadType,
 }: Props) {
+  const [isMobile, setIsMobile] =
+    useState(false);
+
+  useEffect(() => {
+    const checkScreen = () => {
+      setIsMobile(
+        window.innerWidth < 768
+      );
+    };
+
+    checkScreen();
+
+    window.addEventListener(
+      "resize",
+      checkScreen
+    );
+
+    return () =>
+      window.removeEventListener(
+        "resize",
+        checkScreen
+      );
+  }, []);
+
   function buttonStyle(
     type: SpreadType
   ): React.CSSProperties {
@@ -76,23 +102,31 @@ export default function SpreadSelector({
         3 Cartas
       </button>
 
-      <button
-        onClick={() =>
-          setSpreadType("celtic")
-        }
-        style={buttonStyle("celtic")}
-      >
-        Cruz Celta
-      </button>
+      {!isMobile && (
+        <button
+          onClick={() =>
+            setSpreadType("celtic")
+          }
+          style={buttonStyle("celtic")}
+        >
+          Cruz Celta
+        </button>
+      )}
 
-      <button
-        onClick={() =>
-          setSpreadType("astrological")
-        }
-        style={buttonStyle("astrological")}
-      >
-        Mandala Astrológica
-      </button>
+      {!isMobile && (
+        <button
+          onClick={() =>
+            setSpreadType(
+              "astrological"
+            )
+          }
+          style={buttonStyle(
+            "astrological"
+          )}
+        >
+          Mandala Astrológica
+        </button>
+      )}
 
       <button
         onClick={() =>
