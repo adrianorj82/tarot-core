@@ -11,29 +11,42 @@ type FreeTableCard = CardType & {
 };
 
 interface FreeSpreadProps {
-  drawCard: () => CardType | null;
+  cards: CardType[];
 }
 
-export default function FreeSpread({
-  drawCard,
-}: FreeSpreadProps) {
+export default function FreeSpread({ cards }: FreeSpreadProps) {
   const [placedCards, setPlacedCards] = useState<FreeTableCard[]>([]);
   const [currentCard, setCurrentCard] = useState<FreeTableCard | null>(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [readingStarted, setReadingStarted] = useState(false);
 
   const isMobile =
-    typeof window !== "undefined" &&
-    window.innerWidth < 768;
+    typeof window !== "undefined" && window.innerWidth < 768;
 
   const CARD_W = isMobile ? 80 : 110;
   const CARD_H = isMobile ? 130 : 180;
 
+  /**
+   * 🧿 CARTA SEM ENGINE
+   * O FreeSpread NÃO compra carta.
+   * Ele apenas usa o deck já fornecido pelo TarotTable.
+   */
   function handleDrawCard() {
     if (readingStarted) return;
 
-    const card = drawCard();
-    if (!card) return;
+    if (!cards || cards.length === 0) return;
+
+    const availableCards = cards.filter(
+      (c) => !placedCards.some((p) => p.name === c.name)
+    );
+
+    if (availableCards.length === 0) return;
+
+    const randomIndex = Math.floor(
+      Math.random() * availableCards.length
+    );
+
+    const card = availableCards[randomIndex];
 
     setCurrentCard({
       ...card,
@@ -79,6 +92,7 @@ export default function FreeSpread({
 
   function startReading() {
     if (placedCards.length === 0) return;
+
     setReadingStarted(true);
     setCurrentCard(null);
   }
@@ -111,27 +125,26 @@ export default function FreeSpread({
 
         <button
           onClick={startReading}
-          disabled={readingStarted || placedCards.length === 0}
+          disabled={
+            readingStarted || placedCards.length === 0
+          }
         >
           Trancar Leitura
         </button>
       </div>
 
-      {/* MESA RETANGULAR */}
+      {/* MESA */}
       <div
         style={{
           position: "relative",
           width: "min(95vw, 1100px)",
           height: "700px",
-
           background: "rgba(0,0,0,0.65)",
           backgroundImage: "url('/backgrounds/free-table.png')",
           backgroundSize: "cover",
           backgroundPosition: "center",
-
           borderRadius: "12px",
           border: "2px dashed rgba(212,175,55,0.35)",
-
           boxShadow: "0 0 40px rgba(0,0,0,0.8) inset",
           overflow: "hidden",
         }}
