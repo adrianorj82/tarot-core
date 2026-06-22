@@ -22,9 +22,12 @@ export default function FreeSpread({
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [readingStarted, setReadingStarted] = useState(false);
 
-  const TABLE_SIZE = 900; // mais seguro e responsivo que 1200
-  const CARD_W = 110;
-  const CARD_H = 180;
+  const isMobile =
+    typeof window !== "undefined" &&
+    window.innerWidth < 768;
+
+  const CARD_W = isMobile ? 80 : 110;
+  const CARD_H = isMobile ? 130 : 180;
 
   function handleDrawCard() {
     if (readingStarted) return;
@@ -49,18 +52,6 @@ export default function FreeSpread({
 
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
-
-    // 🔮 limite circular da mesa (área ritual)
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    const radius = rect.width * 0.42;
-
-    const dx = x - centerX;
-    const dy = y - centerY;
-
-    const distance = Math.sqrt(dx * dx + dy * dy);
-
-    if (distance > radius) return;
 
     setPlacedCards((prev) => [
       ...prev,
@@ -113,7 +104,7 @@ export default function FreeSpread({
       >
         <button
           onPointerDown={handleDrawCard}
-          disabled={readingStarted || !!currentCard}
+          disabled={readingStarted}
         >
           Comprar Carta
         </button>
@@ -126,19 +117,21 @@ export default function FreeSpread({
         </button>
       </div>
 
-      {/* MESA RITUAL */}
+      {/* MESA RETANGULAR */}
       <div
         style={{
           position: "relative",
-          width: "min(95vw, 900px)",
-          height: "min(95vw, 900px)",
+          width: "min(95vw, 1100px)",
+          height: "700px",
+
+          background: "rgba(0,0,0,0.65)",
           backgroundImage: "url('/backgrounds/free-table.png')",
           backgroundSize: "cover",
           backgroundPosition: "center",
-          borderRadius: "50%",
 
-          // 🔮 área visível da tiragem
+          borderRadius: "12px",
           border: "2px dashed rgba(212,175,55,0.35)",
+
           boxShadow: "0 0 40px rgba(0,0,0,0.8) inset",
           overflow: "hidden",
         }}
@@ -171,7 +164,7 @@ export default function FreeSpread({
           </div>
         ))}
 
-        {/* PREVIEW DA CARTA */}
+        {/* PREVIEW */}
         {!readingStarted && currentCard && (
           <div
             style={{
@@ -189,17 +182,6 @@ export default function FreeSpread({
             />
           </div>
         )}
-
-        {/* OVERLAY DE ÁREA VÁLIDA */}
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            borderRadius: "50%",
-            boxShadow: "inset 0 0 120px rgba(0,0,0,0.6)",
-            pointerEvents: "none",
-          }}
-        />
       </div>
     </div>
   );
