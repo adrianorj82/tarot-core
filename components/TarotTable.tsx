@@ -9,18 +9,13 @@ import AstrologicalWheelSpread from "./spreads/AstrologicalWheelSpread";
 import FreeSpread from "./spreads/FreeSpread";
 import HistoryPanel from "./HistoryPanel";
 import Menu from "./Menu";
+import TarotCard from "./TarotCard";
 
 import allCards from "../allCards.json";
-
 import { drawCards } from "../services/tarotEngine";
 import type { CardType } from "../services/tarotEngine";
 
-type SpreadType =
-  | "three"
-  | "celtic"
-  | "astrological"
-  | "free";
-
+type SpreadType = "three" | "celtic" | "astrological" | "free";
 type ViewType =
   | "new"
   | "history"
@@ -61,35 +56,24 @@ export default function TarotTable() {
 
     await new Promise((r) => setTimeout(r, 1800));
 
-    const result = drawCards(
-      allCards as CardType[],
-      spreadType
-    );
+    const result = drawCards(allCards as CardType[], spreadType);
 
     const cards = result.cards;
     const bottom = result.bottomCard;
 
     const normalized =
-      spreadType === "celtic"
-        ? cards.slice(0, 10)
-        : cards;
+      spreadType === "celtic" ? cards.slice(0, 10) : cards;
 
     const hiddenCards = normalized.map((card, index) => ({
       ...card,
-      revealed:
-        spreadType === "celtic" && index === 0,
+      revealed: spreadType === "celtic" && index === 0,
     }));
 
     setDrawnCards(hiddenCards);
 
-    setBottomCard(
-      bottom
-        ? { ...bottom, revealed: false }
-        : null
-    );
+    setBottomCard(bottom ? { ...bottom, revealed: false } : null);
 
     const existing = localStorage.getItem("tarot-history");
-
     const parsed = existing ? JSON.parse(existing) : [];
 
     const newReading = {
@@ -145,13 +129,7 @@ export default function TarotTable() {
           }}
         >
           {/* HEADER */}
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              marginBottom: "20px",
-            }}
-          >
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
             <button
               onClick={() => setMenuOpen(true)}
               style={{
@@ -159,26 +137,16 @@ export default function TarotTable() {
                 border: "none",
                 color: "#d4af37",
                 fontSize: "22px",
-                cursor: "pointer",
               }}
             >
               ☰ Menu
             </button>
           </div>
 
-          {/* TITLE */}
-          <h1
-            style={{
-              textAlign: "center",
-              color: "#f5e6b8",
-              fontSize: "56px",
-              marginBottom: "20px",
-            }}
-          >
+          <h1 style={{ textAlign: "center", color: "#f5e6b8", fontSize: "56px" }}>
             Escolha sua Tiragem
           </h1>
 
-          {/* SELECTOR */}
           <SpreadSelector
             spreadType={spreadType}
             setSpreadType={setSpreadType}
@@ -200,10 +168,41 @@ export default function TarotTable() {
           {/* SPREADS */}
           <div style={{ marginTop: "40px" }}>
             {spreadType === "three" && (
-              <ThreeCardSpread
-                cards={drawnCards}
-                onReveal={revealCard}
-              />
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  gap: "40px",
+                }}
+              >
+                <ThreeCardSpread
+                  cards={drawnCards}
+                  onReveal={revealCard}
+                />
+
+                {bottomCard && (
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      gap: "12px",
+                    }}
+                  >
+                    <div style={{ color: "#d4af37" }}>
+                      FUNDO DO DECK
+                    </div>
+
+                    <TarotCard
+                      card={bottomCard}
+                      width={90}
+                      height={150}
+                      onReveal={revealBottomCard}
+                    />
+                  </div>
+                )}
+              </div>
             )}
 
             {spreadType === "celtic" && (
@@ -224,7 +223,6 @@ export default function TarotTable() {
             )}
           </div>
 
-          {/* FOOTER */}
           <div
             style={{
               marginTop: "40px",

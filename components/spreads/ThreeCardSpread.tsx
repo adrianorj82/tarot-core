@@ -56,8 +56,8 @@ export default function ThreeCardSpread({
           {/* CARTA (CORRIGIDA) */}
           <TarotCard
             card={card}
-            width={CARD_W}
-            height={CARD_H}
+            width={90}
+            height={150}
             onReveal={() => onReveal(index)}
           />
 
